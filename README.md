@@ -1,6 +1,9 @@
 ## Rules
 [For Rules Check Wikipedia](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 
+## Dependencies
+* Pygame: 2.5.2
+
 ## Controls
 * g: generate random Pattern
 * c: clear the canvas
