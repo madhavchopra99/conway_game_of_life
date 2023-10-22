@@ -1,5 +1,3 @@
-# Conway's Game of Life
-
 ## Rules
 [For Rules Check Wikipedia](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 
