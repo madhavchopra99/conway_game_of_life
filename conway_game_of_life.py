@@ -108,7 +108,7 @@ def main():
         if playing:
             count += 1
 
-        # update grid to next generation based on update_freq and FPS
+        # update grid to next generation based on update_freq and FPS.
         if count >= update_freq:
             count = 0
             positions = adjust_grid(positions)
