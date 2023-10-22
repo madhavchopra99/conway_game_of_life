@@ -11,4 +11,5 @@
 * spacebar: play/pause the game
 
 ## ScreenShots
-
+![Initial State](https://raw.githubusercontent.com/madhavchopra99/conway_game_of_life/main/screenshots/Initial%20State.png)
+![Playing](https://raw.githubusercontent.com/madhavchopra99/conway_game_of_life/main/screenshots/Playing.png)
