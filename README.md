@@ -1,8 +1,14 @@
 ## Rules
 [For Rules Check Wikipedia](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 
-## Dependencies
-* Pygame: 2.5.2
+## Setup
+
+This project uses [uv](https://docs.astral.sh/uv/) to manage dependencies.
+
+```bash
+uv sync                    # creates .venv/ and installs dependencies
+uv run conway-game-of-life
+```
 
 ## Controls
 * g: generate random Pattern
