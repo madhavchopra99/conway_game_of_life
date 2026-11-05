@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import pygame
 import random
 from typing import TypeAlias
+
+import pygame
 
 pygame.init()
 
@@ -25,7 +26,12 @@ positions_type: TypeAlias = set[position_type]
 
 def gen(num: int) -> positions_type:
     """Generate set of random position for given num value"""
-    return set([(random.randrange(0, GRID_HEIGHT), random.randrange(0, GRID_WIDTH)) for _ in range(num)])
+    return set(
+        [
+            (random.randrange(0, GRID_HEIGHT), random.randrange(0, GRID_WIDTH))
+            for _ in range(num)
+        ]
+    )
 
 
 def draw_grid(positions: positions_type) -> None:
@@ -39,19 +45,15 @@ def draw_grid(positions: positions_type) -> None:
 
     # drawing horizontal lines
     for row in range(GRID_HEIGHT):
-        pygame.draw.line(screen, BLACK, (0, row * TILE_SIZE),
-                         (WIDTH, row * TILE_SIZE))
-        pass
+        pygame.draw.line(screen, BLACK, (0, row * TILE_SIZE), (WIDTH, row * TILE_SIZE))
 
     # drawing vertical lines
     for col in range(GRID_WIDTH):
-        pygame.draw.line(screen, BLACK, (col * TILE_SIZE, 0),
-                         (col * TILE_SIZE, HEIGHT))
-    pass
+        pygame.draw.line(screen, BLACK, (col * TILE_SIZE, 0), (col * TILE_SIZE, HEIGHT))
 
 
 def adjust_grid(positions: positions_type) -> positions_type:
-    '''return positions of alive cells in next generation'''
+    """return positions of alive cells in next generation"""
 
     all_neighbors = set()
     new_positions = set()
@@ -76,7 +78,7 @@ def adjust_grid(positions: positions_type) -> positions_type:
 
 
 def get_neighbors(pos: position_type) -> list[position_type]:
-    '''return neighbours for given grid position'''
+    """return neighbours for given grid position"""
     x, y = pos
     neighbors = []
 
@@ -159,5 +161,5 @@ def main():
     pygame.quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
