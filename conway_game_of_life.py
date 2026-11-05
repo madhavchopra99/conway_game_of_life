@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
+"""Conway's Game of Life implemented with pygame."""
+
 import random
-from typing import TypeAlias
 
 import pygame
 
@@ -20,22 +21,20 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 clock = pygame.time.Clock()
 
-position_type: TypeAlias = tuple[int, int]
-positions_type: TypeAlias = set[position_type]
+type position_type = tuple[int, int]
+type positions_type = set[position_type]
 
 
 def gen(num: int) -> positions_type:
-    """Generate set of random position for given num value"""
-    return set(
-        [
-            (random.randrange(0, GRID_HEIGHT), random.randrange(0, GRID_WIDTH))
-            for _ in range(num)
-        ]
-    )
+    """Generate a set of random positions for a given num value."""
+    return {
+        (random.randrange(0, GRID_HEIGHT), random.randrange(0, GRID_WIDTH))
+        for _ in range(num)
+    }
 
 
 def draw_grid(positions: positions_type) -> None:
-    """It draws the grid and fill positions with yellow color"""
+    """Draw the grid and fill positions with yellow color."""
 
     # filling positions with yellow color
     for position in positions:
@@ -53,57 +52,50 @@ def draw_grid(positions: positions_type) -> None:
 
 
 def adjust_grid(positions: positions_type) -> positions_type:
-    """return positions of alive cells in next generation"""
-
-    all_neighbors = set()
-    new_positions = set()
+    """Return positions of alive cells in next generation."""
+    all_neighbors: positions_type = set()
+    new_positions: positions_type = set()
 
     for position in positions:
         neighbors = get_neighbors(position)
         all_neighbors.update(neighbors)
 
-        neighbors = list(filter(lambda x: x in positions, neighbors))
+        living_neighbors = sum(neighbor in positions for neighbor in neighbors)
 
-        if len(neighbors) in [2, 3]:
+        if living_neighbors in (2, 3):
             new_positions.add(position)
 
     for position in all_neighbors:
         neighbors = get_neighbors(position)
-        neighbors = list(filter(lambda x: x in positions, neighbors))
+        living_neighbors = sum(neighbor in positions for neighbor in neighbors)
 
-        if len(neighbors) == 3:
+        if living_neighbors == 3:
             new_positions.add(position)
 
     return new_positions
 
 
 def get_neighbors(pos: position_type) -> list[position_type]:
-    """return neighbours for given grid position"""
+    """Return neighbours for given grid position."""
     x, y = pos
-    neighbors = []
-
-    for dx in [-1, 0, 1]:
-        if x + dx < 0 or x + dx > GRID_WIDTH:
-            continue
-        for dy in [-1, 0, 1]:
-            if y + dy < 0 or y + dy > GRID_HEIGHT:
-                continue
-
-            if dx == 0 and dy == 0:
-                continue
-
-            neighbors.append((x + dx, y + dy))
-
-    return neighbors
+    return [
+        (x + dx, y + dy)
+        for dx in (-1, 0, 1)
+        for dy in (-1, 0, 1)
+        if 0 <= x + dx <= GRID_WIDTH
+        and 0 <= y + dy <= GRID_HEIGHT
+        and (dx, dy) != (0, 0)
+    ]
 
 
-def main():
+def main() -> None:
+    """Run the game loop."""
     running = True
     playing = False
     count = 0
     update_freq = 30
 
-    positions = set()
+    positions: positions_type = set()
 
     while running:
         clock.tick(FPS)

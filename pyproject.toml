@@ -12,9 +12,32 @@ dependencies = [
 [project.scripts]
 conway-game-of-life = "conway_game_of_life:main"
 
+[dependency-groups]
+dev = [
+    "ruff>=0.17",
+]
+
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 py-modules = ["conway_game_of_life"]
+
+[tool.ruff]
+target-version = "py315"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
+    "RUF", # Ruff-specific rules
+]
